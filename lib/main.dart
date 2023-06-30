@@ -4,6 +4,7 @@ import 'package:fitnessapp/View/Login.dart';
 import 'package:fitnessapp/View/MyNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'View/Home/chatbot/providers/chat_providers.dart';
 import 'View/Home/chatbot/providers/models_provider.dart';
@@ -16,8 +17,15 @@ import 'View/Home/chatbot/providers/models_provider.dart';
 // import 'providers/chats_provider.dart';
 // import 'screens/chat_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: 'https://hxiynasmodijfaqkecpj.supabase.co',
+    anonKey:
+        '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4aXluYXNtb2RpamZhcWtlY3BqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc4NDczNjYsImV4cCI6MjAwMzQyMzM2Nn0.M3dpxjkUiqXDUiT4Ki1-cHvYUP2IhgpSAJBuqmaS6W8''',
+  );
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -10,6 +10,14 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int selected = 0;
+  final links = [
+    "https://www.youtube.com/watch?v=3p8EBPVZ2Iw",
+    "https://www.youtube.com/watch?v=8A-_aBoT4kk",
+    "https://www.youtube.com/watch?v=JCXUYuzwNrM",
+    "https://www.youtube.com/watch?v=7w7MgN0hQHY",
+    "https://www.youtube.com/watch?v=uyFjMup-I3I",
+    "https://www.youtube.com/watch?v=JGwWNGJdvx8",
+  ];
 
   @override
   Widget build(BuildContext context) {

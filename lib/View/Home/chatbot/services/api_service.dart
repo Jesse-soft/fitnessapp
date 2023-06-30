@@ -120,6 +120,7 @@ class ApiService {
           ),
         );
       }
+      log('$chatList');
       return chatList;
     } catch (error) {
       print("error $error");

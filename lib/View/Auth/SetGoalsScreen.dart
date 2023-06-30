@@ -1,5 +1,7 @@
+import 'package:fitnessapp/chatbox/chatbox.dart';
 import 'package:fitnessapp/View/Auth/PersonalInfoScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:async';
 
 class SetGoalScreen extends StatefulWidget {
@@ -11,6 +13,7 @@ class SetGoalScreen extends StatefulWidget {
 
 class _SetGoalScreenState extends State<SetGoalScreen> {
   TextEditingController name = new TextEditingController();
+  final supabase = Supabase.instance.client;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,7 @@ class _SetGoalScreenState extends State<SetGoalScreen> {
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: Colors.white),
+                          color: Color.fromARGB(255, 244, 214, 214)),
                       fillColor: Colors.grey.shade500,
                       filled: true,
                       errorBorder: InputBorder.none,
@@ -79,11 +82,28 @@ class _SetGoalScreenState extends State<SetGoalScreen> {
               Padding(
                 padding: EdgeInsets.only(top: 60),
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => GoalText(
-                              decreas: "asdf",
-                            )));
+                  onTap: () async {
+                    var response = await sendMessagefull(
+                        message:
+                            """Please provide a JavaScript array of 6 random YouTube video links related to workouts. Ensure that it is different from the previous response, if one has been provided. The array should not be enclosed in code blocks and should be in textual format. Only include the array in the response. Do not add any additional phrases such as "Certainly," "Apologize," "Here's," or any heading. Ensure that the response is solely focused on providing the array. Avoid adding any extra content at the beginning or end.""",
+                        modelId: "text-davinci-003");
+                    print(response);
+                    try {
+                      await supabase.from('links').insert({
+                        'body': 'response',
+                      });
+                    } catch (error) {
+                      print('$error');
+                      rethrow;
+                    }
+
+                    // await Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => GoalText(
+                    //       decreas: "asdf",
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: Container(
                     width: width / 1.4,
